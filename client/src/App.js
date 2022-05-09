@@ -1,0 +1,22 @@
+import React from "react";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
+import TodosProductos from "./componentes/TodosProductos";
+import NuevoProducto from "./componentes/NuevoProducto";
+import Producto from "./componentes/Producto";
+
+const App = () => {
+  return (
+    <div className="container">
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact render={()=> <TodosProductos />} />
+          <Route path="/nuevo" render={() => <NuevoProducto />} />
+          <Route path="/producto/:id" render={()=> <Producto />} />
+        </Switch>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
