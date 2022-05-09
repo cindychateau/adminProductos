@@ -16,6 +16,15 @@ const TodosProductos = () => {
 
     }, [])
 
+    const borrarProducto = idProd => {
+        axios.delete("http://localhost:8000/api/productos/"+idProd)
+            .then(res => {
+                //Actualizo lista FILTER
+                let nuevaListaProds = productos.filter(producto => producto._id !== idProd);
+                setProductos(nuevaListaProds);
+            })
+    }
+
     return (
         <div>
             <h1>Todos los productos</h1>
@@ -38,6 +47,8 @@ const TodosProductos = () => {
                                 <td>{producto.descripcion}</td>
                                 <td>
                                     <Link className="btn btn-primary" to={`/producto/${producto._id}`}>Detalle</Link>
+                                    <Link className="btn btn-warning" to={`/producto/editar/${producto._id}`}>Editar</Link>
+                                    <button className="btn btn-danger" onClick={() => borrarProducto(producto._id)}>Eliminar</button>
                                 </td>
                             </tr>
                         ))
