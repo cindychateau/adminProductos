@@ -7,6 +7,7 @@ const ActualizarProducto = () => {
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
     const [descripcion, setDescripcion] = useState("");
+    const [errors, setErrors] = useState({});
     const history = useHistory();
 
     useEffect( () => {
@@ -31,7 +32,7 @@ const ActualizarProducto = () => {
             descripcion
         })
             .then(res => history.push("/"))
-            .catch(err => console.log(err));
+            .catch(err => setErrors(err.response.data.errors));
     }
  
     return (
@@ -41,6 +42,7 @@ const ActualizarProducto = () => {
                 <div className="form-group">
                     <label htmlFor="nombre">Nombre:</label>
                     <input id="nombre" name="nombre" type="text" className="form-control" value={nombre} onChange= {(e) => setNombre(e.target.value)} />
+                    {errors.nombre ? <span className="text-danger">{errors.nombre.message}</span> : null}
                 </div>
                 <div className="form-group">
                     <label htmlFor="precio">Precio:</label>
@@ -49,6 +51,7 @@ const ActualizarProducto = () => {
                 <div className="form-group">
                     <label htmlFor="descripcion">Descripción:</label>
                     <input id="descripcion" name="descripcion" type="text" className="form-control" value={descripcion} onChange= {(e) => setDescripcion(e.target.value)} />
+                    {errors.descripcion ? <span className="text-danger">{errors.descripcion.message}</span> : null}
                 </div>
                 <input type="submit" className="btn btn-success" value="Guardar" />
             </form>
